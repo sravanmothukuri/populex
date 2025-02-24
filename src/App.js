@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import Navbar from "./components/Navbar"; // ✅ Import Navbar
+import LoadingScreen from "./components/LoadingScreen/LoadingScreen";
+import Home from "./pages/Home";
+import Category from "./pages/Category";
+import Product from "./pages/Product";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => setIsLoading(false), 2200);
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {/* ✅ Show Navbar only when loading is false */}
+      {!isLoading && <Navbar />}
+
+      {isLoading ? (
+        <LoadingScreen textPosition="top" />
+      ) : (
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/category" element={<Category />} />
+          <Route path="/product/:id" element={<Product />} />
+        </Routes>
+      )}
     </div>
   );
 }
 
-export default App;
+function AppWrapper() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}
+
+export default AppWrapper;

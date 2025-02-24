@@ -1,0 +1,25 @@
+
+
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: rgba(26, 43, 6, 0.7);
+  }
+  
+  .loading-icon {
+    width: 80px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  .loading-text {
+    font-size: 1.5rem;
+    font-family: 'Lexend', sans-serif;
+    color: #efc55b;
+    text-align: center;
+  }
+  
